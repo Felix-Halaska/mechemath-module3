@@ -1,5 +1,5 @@
 t_ref = 0.492;
-h_step = logspace(1e-5, 1e1, 100);
+h_step = logspace(-5, 1, 100);
 
 func1_XA = solution01(t_ref);
 func2_XA = solution02(t_ref);
