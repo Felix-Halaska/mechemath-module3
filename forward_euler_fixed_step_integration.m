@@ -29,11 +29,29 @@ function [t_list,X_list,h_avg, num_evals] = forward_euler_fixed_step_integration
 
 end
 
+[t_list_small, X_list_small, h_avg, num_evals] = forward_euler_fixed_step_integration_test(@rate_func01, [0,4*pi], 1, 0.001);
+[t_list_med, X_list_med, h_avg, num_evals] = forward_euler_fixed_step_integration_test(@rate_func01, [0,4*pi], 1, 0.01);
+[t_list_large, X_list_large, h_avg, num_evals] = forward_euler_fixed_step_integration_test(@rate_func01, [0,4*pi], 1, 0.1);
 
-[t_list, X_list, h_avg, num_evals] = forward_euler_fixed_step_integration_test(@rate_func01, [0,2*pi], 1, 0.01);
-t_space = linspace(0,2*pi,2*pi/0.01);
+num_evals
+
+figure();
+% set(f, "interpreter", "latex")
+t_space = linspace(0,4*pi,2*pi/0.01);
 true_sol = cos(t_space);
-plot(t_list, X_list)
+plot(t_space, true_sol, LineWidth=3, Color="k")
 hold on
-plot(t_space, true_sol, "--")
+plot(t_list_small, X_list_small, '--', LineWidth=2, Color="r")
+plot(t_list_med, X_list_med, '--', LineWidth=2, Color="g")
+plot(t_list_large, X_list_large, '--', LineWidth=2, Color="b")
 hold off
+legend(["True","h = 0.01", "h = 0.05", "h = 0.1"], Interpreter="latex", Location="southeast", FontSize=14)
+xlabel("x (-)", Interpreter="latex", FontSize=14)
+ylabel("f(x) (-)", Interpreter="latex", FontSize=14)
+axis([0 4*pi -1.5 1.5])
+title("Forward Euler Method Timestep", Interpreter='latex', FontSize=16)
+ax = gca;
+ax.FontSize = 14;
+ax.XAxis.TickLabelInterpreter = 'Latex';
+ax.YAxis.TickLabelInterpreter = 'Latex';
+% exportgraphics(gca, 'plots/forward_euler.png', 'Resolution',300)
