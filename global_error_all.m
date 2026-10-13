@@ -1,0 +1,68 @@
+t_ref = [0, .492];
+h_step = logspace(-5, 0, 100);
+
+test_func = @rate_func02;
+
+XA = solution02(t_ref(1));
+gt = solution02(t_ref(end));
+
+fe_err_list = [];
+mp_err_list = [];
+be_err_list = [];
+imp_err_list = [];
+gt_err_list = [];
+
+for i = 1:length(h_step)
+    [t_list_fe, x_list_fe, ~, num_evals_fe] = forward_euler_fixed_step_integration(test_func, t_ref, XA, h_step(i));
+    [t_list_mp, x_list_mp, ~, num_evals_mp] = explicit_midpoint_fixed_step_integration(test_func, t_ref, XA, h_step(i));
+    [t_list_be, x_list_be, ~, num_evals_be] = backward_euler_fixed_step_integration(test_func, t_ref, XA, h_step(i));
+    [t_list_imp, x_list_imp, ~, num_evals_imp] = implicit_midpoint_fixed_step_integration(test_func, t_ref, XA, h_step(i));
+
+
+    XB_fe = x_list_fe(end);
+    XB_mp = x_list_mp(end);
+    XB_be = x_list_be(end);
+    XB_imp = x_list_imp(end);
+
+    fe_err_list = [fe_err_list, norm(XB_fe - gt)];
+    mp_err_list = [mp_err_list, norm(XB_mp - gt)];
+    be_err_list = [be_err_list, norm(XB_be - gt)];
+    imp_err_list = [imp_err_list, norm(XB_imp - gt)];
+
+    gt_err_list = [gt_err_list, norm(gt - XA)];
+
+
+end
+
+
+mp_p = polyfit(log(h_step), log(mp_err_list), 1)
+fe_p = polyfit(log(h_step), log(fe_err_list), 1)
+be_p = polyfit(log(h_step), log(be_err_list), 1)
+imp_p = polyfit(log(h_step), log(imp_err_list), 1)
+
+gt_p = polyfit(log(h_step), log(gt_err_list), 1)
+
+
+figure();
+scatter(h_step, mp_err_list, "r")
+hold on
+scatter(h_step, fe_err_list, "g")
+scatter(h_step, be_err_list, "b");
+scatter(h_step, imp_err_list, "k");
+% scatter(h_step, gt_err_list);
+hold off
+set(gca,'xscale','log')
+set(gca,'yscale','log')
+legend(["Explicit Midpoint","Forward Euler", "Backward Euler", "Implicit Midpoint"], Location = "northwest", Interpreter="latex", FontSize=14)
+xlabel("h step (-)", Interpreter="latex", FontSize=14)
+ylabel("error (-)", Interpreter="latex", FontSize=14)
+% axis([0 4*pi -1.5 1.5])
+title("All Methods Global Error", Interpreter='latex', FontSize=16)
+ax = gca;
+ax.FontSize = 14;
+ax.XAxis.TickLabelInterpreter = 'Latex';
+ax.YAxis.TickLabelInterpreter = 'Latex';
+% exportgraphics(gca, 'plots/all_methods_global_error_testfunc1.png', 'Resolution',300)
+
+
+

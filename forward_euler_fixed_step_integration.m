@@ -10,7 +10,7 @@
 %X_list: the vector of X, [X0';X1';X2';...;(X_end)'] at each time step
 %h_avg: the average step size
 %num_evals: total number of calls made to rate_func_in during the integration
-function [t_list,X_list,h_avg, num_evals] = forward_euler_fixed_step_integration_test(rate_func_in,tspan,X0,h_ref)
+function [t_list,X_list,h_avg, num_evals] = forward_euler_fixed_step_integration(rate_func_in,tspan,X0,h_ref)
     n_steps = ceil((tspan(2)-tspan(1))/h_ref);
 
     h_avg = (tspan(2) - tspan(1))/n_steps;
@@ -19,7 +19,7 @@ function [t_list,X_list,h_avg, num_evals] = forward_euler_fixed_step_integration
     t_list = linspace(tspan(1), tspan(2), n_steps + 1);
     X_list = [];
     
-    for i = 1:n_steps
+    for i = 1:n_steps+1
         [XB, evals] = forward_euler_step(rate_func_in, t_list(i), XA, h_avg);
         num_evals = num_evals + evals;
         X_list = [X_list, XB];
@@ -28,7 +28,7 @@ function [t_list,X_list,h_avg, num_evals] = forward_euler_fixed_step_integration
  
 
 end
-% 
+
 % [t_list_small, X_list_small, h_avg, num_evals] = forward_euler_fixed_step_integration_test(@rate_func01, [0,4*pi], 1, 0.001);
 % [t_list_med, X_list_med, h_avg, num_evals] = forward_euler_fixed_step_integration_test(@rate_func01, [0,4*pi], 1, 0.01);
 % [t_list_large, X_list_large, h_avg, num_evals] = forward_euler_fixed_step_integration_test(@rate_func01, [0,4*pi], 1, 0.1);

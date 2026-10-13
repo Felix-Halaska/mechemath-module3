@@ -10,7 +10,7 @@
 %X_list: the vector of X, [X0';X1';X2';...;(X_end)'] at each time step
 %h_avg: the average step size
 %num_evals: total number of calls made to rate_func_in during the integration
-function [t_list,X_list,h_avg, num_evals] = explicit_midpoint_fixed_step_integration_test(rate_func_in,tspan,X0,h_ref)
+function [t_list,X_list,h_avg, num_evals] = explicit_midpoint_fixed_step_integration(rate_func_in,tspan,X0,h_ref)
     n_steps = ceil((tspan(2)-tspan(1))/h_ref);
 
     h_avg = (tspan(2) - tspan(1))/n_steps;

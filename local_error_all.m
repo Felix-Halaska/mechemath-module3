@@ -1,0 +1,62 @@
+t_ref = 0.492;
+h_step = logspace(-5, 1, 100);
+
+XA = solution01(t_ref);
+
+test_func = @rate_func01;
+
+fe_err_list = [];
+mp_err_list = [];
+gt_err_list = [];
+be_err_list = [];
+imp_err_list = [];
+
+for i = 1:length(h_step)
+    gt = solution01(t_ref + h_step(i));
+
+    [XB_fe, ~] = forward_euler_step(test_func, t_ref, XA, h_step(i));
+    [XB_mp, ~] = explicit_midpoint_step(test_func, t_ref, XA, h_step(i));
+    [XB_be, ~] = backward_euler_step(test_func, t_ref, XA, h_step(i));
+    [XB_imp, ~] = implicit_midpoint_step(test_func, t_ref, XA, h_step(i));
+
+
+    fe_err_list = [fe_err_list, norm(XB_fe - gt)];
+    mp_err_list = [mp_err_list, norm(XB_mp - gt)];
+    be_err_list = [be_err_list, norm(XB_be - gt)];
+    imp_err_list = [imp_err_list, norm(XB_imp - gt)];
+
+    gt_err_list = [gt_err_list, norm(gt - XA)];
+end
+
+
+mp_p = polyfit(log(h_step), log(mp_err_list), 1)
+fe_p = polyfit(log(h_step), log(fe_err_list), 1)
+be_p = polyfit(log(h_step), log(be_err_list), 1)
+imp_p = polyfit(log(h_step), log(imp_err_list), 1)
+
+gt_p = polyfit(log(h_step), log(gt_err_list), 1)
+
+
+figure();
+scatter(h_step, mp_err_list, "r")
+hold on
+scatter(h_step, fe_err_list, "g")
+scatter(h_step, be_err_list, "b");
+scatter(h_step, imp_err_list, "k");
+% scatter(h_step, gt_err_list);
+hold off
+set(gca,'xscale','log')
+set(gca,'yscale','log')
+legend(["Explicit Midpoint","Forward Euler", "Backward Euler", "Implicit Midpoint", "Ground Truth"], Location = "northwest", Interpreter="latex", FontSize=14)
+xlabel("h step (-)", Interpreter="latex", FontSize=14)
+ylabel("error (-)", Interpreter="latex", FontSize=14)
+axis([1e-5 1e0 1e-15 1e0])
+title("All Methods Local Error", Interpreter='latex', FontSize=16)
+ax = gca;
+ax.FontSize = 14;
+ax.XAxis.TickLabelInterpreter = 'Latex';
+ax.YAxis.TickLabelInterpreter = 'Latex';
+% exportgraphics(gca, 'plots/all_methods_local_error_testfunc1.png', 'Resolution',300)
+
+
+

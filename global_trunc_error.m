@@ -40,6 +40,13 @@ f_func1_mp = exp(polyval(func1_mp_p, log(h_step)));
 func1_fe_p = polyfit(log(h_step), log(func1_fe_err_list), 1)
 f_func1_fe = exp(polyval(func1_fe_p, log(h_step)));
 
+func2_mp_p = polyfit(log(h_step), log(func2_mp_err_list), 1)
+f_func2_mp = exp(polyval(func2_mp_p, log(h_step)));
+
+func2_fe_p = polyfit(log(h_step), log(func2_fe_err_list), 1)
+f_func2_fe = exp(polyval(func2_fe_p, log(h_step)));
+
+
 
 figure();
 scatter(h_step, func1_mp_err_list, "r")
