@@ -1,0 +1,76 @@
+
+figure();
+subplot(2, 2, 1);
+t_space = linspace(0,20,20/0.01);
+true_sol = solution01(t_space);
+[t_list_fe, X_list_fe, h_avg, num_evals] = forward_euler_fixed_step_integration(@rate_func01, [0,20], 1, .45);
+plot(t_space, true_sol, LineWidth=3, Color="k")
+hold on
+plot(t_list_fe, X_list_fe, '--', LineWidth=2, Color="r")
+hold off
+legend(["Analytical","Numerical"], Interpreter="latex", Location="southeast", FontSize=8)
+xlabel("x (-)", Interpreter="latex", FontSize=14)
+ylabel("f(x) (-)", Interpreter="latex", FontSize=14)
+axis([0 20 -2 2])
+title("Forward Euler vs Analytical Solution for h ref = 0.45", Interpreter='latex', FontSize=11)
+ax = gca;
+ax.FontSize = 11;
+ax.XAxis.TickLabelInterpreter = 'Latex';
+ax.YAxis.TickLabelInterpreter = 'Latex';
+
+subplot(2, 2, 2);
+t_space = linspace(0,20,20/0.01);
+true_sol = solution01(t_space);
+[t_list_emp, X_list_emp, h_avg, num_evals] = explicit_midpoint_fixed_step_integration(@rate_func01, [0,20], 1, .45);
+plot(t_space, true_sol, LineWidth=3, Color="k")
+hold on
+plot(t_list_emp, X_list_emp, '--', LineWidth=2, Color="r")
+hold off
+legend(["Analytical","Numerical"], Interpreter="latex", Location="southeast", FontSize=8)
+xlabel("x (-)", Interpreter="latex", FontSize=14)
+ylabel("f(x) (-)", Interpreter="latex", FontSize=14)
+axis([0 20 -2 2])
+title("Explicit Midpoint vs Analytical Solution for h ref = 0.45", Interpreter='latex', FontSize=11)
+ax = gca;
+ax.FontSize = 11;
+ax.XAxis.TickLabelInterpreter = 'Latex';
+ax.YAxis.TickLabelInterpreter = 'Latex';
+
+subplot(2, 2, 3);
+t_space = linspace(0,20,20/0.01);
+true_sol = solution01(t_space);
+[t_list_be, X_list_be, h_avg, num_evals] = backward_euler_fixed_step_integration(@rate_func01, [0,20], 1, .45);
+plot(t_space, true_sol, LineWidth=3, Color="k")
+hold on
+plot(t_list_be, X_list_be, '--', LineWidth=2, Color="r")
+hold off
+legend(["Analytical","Numerical"], Interpreter="latex", Location="southeast", FontSize=8)
+xlabel("x (-)", Interpreter="latex", FontSize=14)
+ylabel("f(x) (-)", Interpreter="latex", FontSize=14)
+axis([0 20 -2 2])
+title("Backward Euler vs Analytical Solution for h ref = 0.45", Interpreter='latex', FontSize=11)
+ax = gca;
+ax.FontSize = 11;
+ax.XAxis.TickLabelInterpreter = 'Latex';
+ax.YAxis.TickLabelInterpreter = 'Latex';
+
+subplot(2, 2, 4);
+t_space = linspace(0,20,20/0.01);
+true_sol = solution01(t_space);
+[t_list_imp, X_list_imp, h_avg, num_evals] = implicit_midpoint_fixed_step_integration(@rate_func01, [0,20], 1, .45);
+plot(t_space, true_sol, LineWidth=3, Color="k")
+hold on
+plot(t_list_imp, X_list_imp, '--', LineWidth=2, Color="r")
+hold off
+legend(["Analytical","Numerical"], Interpreter="latex", Location="southeast", FontSize=8)
+xlabel("x (-)", Interpreter="latex", FontSize=14)
+ylabel("f(x) (-)", Interpreter="latex", FontSize=14)
+axis([0 20 -2 2])
+title("Implicit Midpoint vs Analytical Solution for h ref = 0.45", Interpreter='latex', FontSize=11)
+ax = gca;
+ax.FontSize = 11;
+ax.XAxis.TickLabelInterpreter = 'Latex';
+ax.YAxis.TickLabelInterpreter = 'Latex';
+
+sgtitle("Explicit vs Implicit Method Stability Experiments", Interpreter='latex', FontSize=15)
+exportgraphics(gca, 'plots/45_stability.png', 'Resolution',300)

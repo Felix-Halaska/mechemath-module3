@@ -19,7 +19,7 @@ function [t_list,X_list,h_avg, num_evals] = explicit_midpoint_fixed_step_integra
     t_list = linspace(tspan(1), tspan(2), n_steps+1);
     X_list = [];
     
-    for i = 1:n_steps
+    for i = 1:n_steps+1
         [XB, evals] = explicit_midpoint_step(rate_func_in, t_list(i), XA, h_avg);
         num_evals = num_evals + evals;
         X_list = [X_list, XB];
