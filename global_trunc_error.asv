@@ -8,12 +8,16 @@ func2_gt = solution02(t_ref(end));
 
 func1_fe_err_list = [];
 func1_mp_err_list = [];
+
 func2_fe_err_list = [];
 func2_mp_err_list = [];
 
+fe_evals_list = [];
+mp_evals_list = [];
+
 
 for i = 1:length(h_step)
-    [t_list_fe, x_list_fe, ~, num_evals_fe] = forward_euler_fixed_step_integration(test_func, t_ref, func1_XA, h_step(i));
+    [t_list_fe, x_list_fe, ~, num_evals_fe] = forward_euler_fixed_step_integration(@rate_func01, t_ref, func1_XA, h_step(i));
     [t_list_mp, x_list_mp, ~, num_evals_mp] = explicit_midpoint_fixed_step_integration(@rate_func01, t_ref, func1_XA, h_step(i));
 
     XB_func1_fe = x_list_fe(end);
@@ -21,6 +25,9 @@ for i = 1:length(h_step)
 
     func1_fe_err_list = [func1_fe_err_list, norm(XB_func1_fe - func1_gt)];
     func1_mp_err_list = [func1_mp_err_list, norm(XB_func1_mp - func1_gt)];
+
+     fe_evals_list = [fe_evals_list, num_evals_fe];
+    mp_evals_list = [mp_evals_list, num_evals_mp];
 
     [t_list_fe2, x_list_fe2, ~, num_evals_fe2] = forward_euler_fixed_step_integration(@rate_func02, t_ref, func2_XA, h_step(i));
     [t_list_mp2, x_list_mp2, ~, num_evals_mp2] = explicit_midpoint_fixed_step_integration(@rate_func02, t_ref, func2_XA, h_step(i));
@@ -39,6 +46,13 @@ f_func1_mp = exp(polyval(func1_mp_p, log(h_step)));
 
 func1_fe_p = polyfit(log(h_step), log(func1_fe_err_list), 1)
 f_func1_fe = exp(polyval(func1_fe_p, log(h_step)));
+
+func2_mp_p = polyfit(log(h_step), log(func2_mp_err_list), 1)
+f_func2_mp = exp(polyval(func2_mp_p, log(h_step)));
+
+func2_fe_p = polyfit(log(h_step), log(func2_fe_err_list), 1)
+f_func2_fe = exp(polyval(func2_fe_p, log(h_step)));
+
 
 
 figure();
