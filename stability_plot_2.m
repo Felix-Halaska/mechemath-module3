@@ -1,5 +1,5 @@
 
-figure();
+f= figure();
 subplot(2, 2, 1);
 t_space = linspace(0,20,20/0.01);
 true_sol = solution01(t_space);
@@ -73,4 +73,4 @@ ax.XAxis.TickLabelInterpreter = 'Latex';
 ax.YAxis.TickLabelInterpreter = 'Latex';
 
 sgtitle("Explicit vs Implicit Method Stability Experiments", Interpreter='latex', FontSize=15)
-exportgraphics(gca, 'plots/45_stability.png', 'Resolution',300)
+exportgraphics(f, 'plots/45_stability.png', 'Resolution',300)
