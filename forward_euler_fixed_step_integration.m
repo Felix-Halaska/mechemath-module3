@@ -17,9 +17,9 @@ function [t_list,X_list,h_avg, num_evals] = forward_euler_fixed_step_integration
     num_evals = 0;
     XA = X0;
     t_list = linspace(tspan(1), tspan(2), n_steps + 1);
-    X_list = [];
+    X_list = [XA];
     
-    for i = 1:n_steps+1
+    for i = 1:n_steps
         [XB, evals] = forward_euler_step(rate_func_in, t_list(i), XA, h_avg);
         num_evals = num_evals + evals;
         X_list = [X_list, XB];
