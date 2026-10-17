@@ -29,15 +29,11 @@ function [t_list,X_list,h_avg, num_evals] = backward_euler_fixed_step_integratio
     end
 end
 
-
-
-% [t_list_small, X_list_small, h_avg, small_num_evals] = backward_euler_fixed_step_integration_test(@rate_func01, [0,4*pi], 1, 0.001);
-% [t_list_med, X_list_med, h_avg, med_num_evals] = backward_euler_fixed_step_integration_test(@rate_func01, [0,4*pi], 1, 0.01);
-% [t_list_large, X_list_large, h_avg, large_num_evals] = backward_euler_fixed_step_integration_test(@rate_func01, [0,4*pi], 1, 0.1);
 % 
-% small_num_evals
-% med_num_evals
-% large_num_evals
+% 
+% [t_list_small, X_list_small, h_avg, small_num_evals] = backward_euler_fixed_step_integration_test(@rate_func01, [0,4*pi], 1, 0.1);
+% [t_list_med, X_list_med, h_avg, med_num_evals] = backward_euler_fixed_step_integration_test(@rate_func01, [0,4*pi], 1, 0.25);
+% [t_list_large, X_list_large, h_avg, large_num_evals] = backward_euler_fixed_step_integration_test(@rate_func01, [0,4*pi], 1, 0.4);
 % 
 % figure();
 % % set(f, "interpreter", "latex")
@@ -45,17 +41,17 @@ end
 % true_sol = cos(t_space);
 % plot(t_space, true_sol, LineWidth=3, Color="k")
 % hold on
-% plot(t_list_small, X_list_small, '--', LineWidth=2, Color="r")
-% plot(t_list_med, X_list_med, '--', LineWidth=2, Color="g")
-% plot(t_list_large, X_list_large, '--', LineWidth=2, Color="b")
+% plot(t_list_small, X_list_small, "-o",MarkerFaceColor='r',LineWidth=2, Color="r")
+% plot(t_list_med, X_list_med, "-o", MarkerFaceColor='g',LineWidth=2, Color="g")
+% plot(t_list_large, X_list_large, "-o", MarkerFaceColor='b',LineWidth=2, Color="b")
 % hold off
-% legend(["True","h = 0.01", "h = 0.05", "h = 0.1"], Interpreter="latex", Location="southeast", FontSize=14)
-% xlabel("x (-)", Interpreter="latex", FontSize=14)
-% ylabel("f(x) (-)", Interpreter="latex", FontSize=14)
+% legend(["True","$h = 0.1$", "$h = 0.25$", "$h = 0.4$"], Interpreter="latex", Location="south", FontSize=16)
+% xlabel("Time (-)", Interpreter="latex", FontSize=16)
+% ylabel("$X(t) (-)$", Interpreter="latex", FontSize=16)
 % axis([0 4*pi -1.5 1.5])
-% title("Backward Euler Method Timestep", Interpreter='latex', FontSize=16)
+% title("Backward Euler Method Integration Example", Interpreter='latex', FontSize=18)
 % ax = gca;
-% ax.FontSize = 14;
+% ax.FontSize = 16;
 % ax.XAxis.TickLabelInterpreter = 'Latex';
 % ax.YAxis.TickLabelInterpreter = 'Latex';
 % exportgraphics(gca, 'plots/backward_euler.png', 'Resolution',300)
