@@ -65,7 +65,7 @@ ax = gca;
 ax.FontSize = 16;
 ax.XAxis.TickLabelInterpreter = 'Latex';
 ax.YAxis.TickLabelInterpreter = 'Latex';
-% exportgraphics(gca, 'plots/all_methods_local_error_testfunc1.png', 'Resolution',300)
+exportgraphics(gca, 'plots/all_methods_local_error_testfunc1.png', 'Resolution',300)
 
 
 
