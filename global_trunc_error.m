@@ -93,7 +93,7 @@ ax = gca;
 ax.FontSize = 16;
 ax.XAxis.TickLabelInterpreter = 'Latex';
 ax.YAxis.TickLabelInterpreter = 'Latex';
-% exportgraphics(gca, 'plots/explicit_methods_global_error_testfunc1.png', 'Resolution',300)
+exportgraphics(gca, 'plots/explicit_methods_global_error_testfunc1.png', 'Resolution',300)
 
 % figure();
 % scatter(mp_evals_list, func1_mp_err_list, "r")
