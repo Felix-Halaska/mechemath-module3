@@ -84,45 +84,45 @@ f_fe = exp(polyval(fe_eval_p, log(filtered_fe_nums)));
 
 
 
-% figure();
-% scatter(filtered_h_step, filtered_mp_err, 60,'filled',"r")
-% hold on
-% scatter(filtered_h_step, filtered_fe_err,60,'filled',"b")
-% plot(filtered_h_step, f_func1_mp, '-', LineWidth=3, Color="k")
-% plot(filtered_h_step, f_func1_fe, '-', LineWidth=3, Color="k")
-% hold off
-% set(gca,'xscale','log')
-% set(gca,'yscale','log')
-% legend(["Explicit Midpoint Measured","Forward Euler Measured", "Explicit Midpoint Fit", "Forward Euler Fit"], Location = "northwest", Interpreter="latex", FontSize=14)
-% xlabel("Time Step - $h$ (-)", Interpreter="latex", FontSize=14)
-% ylabel("Global Truncation Error (-)", Interpreter="latex", FontSize=14)
-% axis([0 4*pi -1.5 1.5])
-% title("Global Truncation Error vs Step Size - Explicit Methods", Interpreter='latex', FontSize=18)
-% ax = gca;
-% ax.FontSize = 16;
-% ax.XAxis.TickLabelInterpreter = 'Latex';
-% ax.YAxis.TickLabelInterpreter = 'Latex';
-% exportgraphics(gca, 'plots/explicit_methods_global_error_testfunc1.png', 'Resolution',300)
-
 figure();
-scatter(filtered_mp_nums, filt_mp_error_2, 60, 'filled', "r")
+scatter(filtered_h_step, filtered_mp_err, 60,'filled',"r")
 hold on
-scatter(filtered_fe_nums, filt_fe_error_2, 60, 'filled',"b")
-plot(filtered_mp_nums, f_mp, '-', LineWidth=3, Color="k")
-plot(filtered_fe_nums, f_fe, '-', LineWidth=3, Color="k")
+scatter(filtered_h_step, filtered_fe_err,60,'filled',"b")
+plot(filtered_h_step, f_func1_mp, '-', LineWidth=3, Color="k")
+plot(filtered_h_step, f_func1_fe, '-', LineWidth=3, Color="k")
 hold off
 set(gca,'xscale','log')
 set(gca,'yscale','log')
-legend(["Explicit Midpoint Measured","Forward Euler Measured", "Explicit Midpoint Fit", "Forward Euler Fit"], Location = "northeast", Interpreter="latex", FontSize=12)
-xlabel("Number of Rate Function Calls (-)", Interpreter="latex", FontSize=14)
+legend(["Explicit Midpoint Measured","Forward Euler Measured", "Explicit Midpoint Fit", "Forward Euler Fit"], Location = "northwest", Interpreter="latex", FontSize=14)
+xlabel("Time Step - $h$ (-)", Interpreter="latex", FontSize=14)
 ylabel("Global Truncation Error (-)", Interpreter="latex", FontSize=14)
 %axis([0 4*pi -1.5 1.5])
-title("Global Truncation Error vs Number of Rate Function Calls: Explicit Methods", Interpreter='latex', FontSize=16)
+title("Global Truncation Error vs Step Size - Explicit Methods", Interpreter='latex', FontSize=18)
 ax = gca;
-ax.FontSize = 14;
+ax.FontSize = 16;
 ax.XAxis.TickLabelInterpreter = 'Latex';
 ax.YAxis.TickLabelInterpreter = 'Latex';
-exportgraphics(gca, 'plots/explicit_methods_global_error__func_calls_testfunc1.png', 'Resolution',300)
+exportgraphics(gca, 'plots/explicit_methods_global_error_testfunc1.png', 'Resolution',300)
+
+% figure();
+% scatter(filtered_mp_nums, filt_mp_error_2, 60, 'filled', "r")
+% hold on
+% scatter(filtered_fe_nums, filt_fe_error_2, 60, 'filled',"b")
+% plot(filtered_mp_nums, f_mp, '-', LineWidth=3, Color="k")
+% plot(filtered_fe_nums, f_fe, '-', LineWidth=3, Color="k")
+% hold off
+% set(gca,'xscale','log')
+% set(gca,'yscale','log')
+% legend(["Explicit Midpoint Measured","Forward Euler Measured", "Explicit Midpoint Fit", "Forward Euler Fit"], Location = "northeast", Interpreter="latex", FontSize=12)
+% xlabel("Number of Rate Function Calls (-)", Interpreter="latex", FontSize=14)
+% ylabel("Global Truncation Error (-)", Interpreter="latex", FontSize=14)
+% axis([0 4*pi -1.5 1.5])
+% title("Global Truncation Error vs Number of Rate Function Calls: Explicit Methods", Interpreter='latex', FontSize=16)
+% ax = gca;
+% ax.FontSize = 14;
+% ax.XAxis.TickLabelInterpreter = 'Latex';
+% ax.YAxis.TickLabelInterpreter = 'Latex';
+% exportgraphics(gca, 'plots/explicit_methods_global_error__func_calls_testfunc1.png', 'Resolution',300)
 
 
 
