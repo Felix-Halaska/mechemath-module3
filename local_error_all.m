@@ -47,22 +47,22 @@ gt_p = polyfit(log(filtered_h_step), log(filtered_gt_err), 1)
 
 
 figure();
-scatter(filtered_h_step, filtered_mp_err, "r")
+scatter(filtered_h_step, filtered_mp_err, 30, "filled", "r")
 hold on
-scatter(filtered_h_step, filtered_fe_err, "g")
-scatter(filtered_h_step, filtered_be_err, "b");
-scatter(filtered_h_step, filtered_imp_err, "k");
+scatter(filtered_h_step, filtered_fe_err, 75, "filled", "g")
+scatter(filtered_h_step, filtered_be_err, 30, "filled", "b");
+scatter(filtered_h_step, filtered_imp_err, 30, "filled", "k");
 % scatter(h_step, gt_err_list);
 hold off
 set(gca,'xscale','log')
 set(gca,'yscale','log')
-legend(["Explicit Midpoint","Forward Euler", "Backward Euler", "Implicit Midpoint", "Ground Truth"], Location = "northwest", Interpreter="latex", FontSize=14)
-xlabel("h step (-)", Interpreter="latex", FontSize=14)
-ylabel("error (-)", Interpreter="latex", FontSize=14)
+legend(["Explicit Midpoint","Forward Euler", "Backward Euler", "Implicit Midpoint", "Ground Truth"], Location = "northwest", Interpreter="latex", FontSize=16)
+xlabel("Time Step $h$ (-)", Interpreter="latex", FontSize=16)
+ylabel("Local Truncation Error (-)", Interpreter="latex", FontSize=16)
 axis([1e-5 1e-1 1e-15 1e0])
-title("All Methods Local Error", Interpreter='latex', FontSize=16)
+title("Local Truncation Error vs. Step Size: All Methods", Interpreter='latex', FontSize=18)
 ax = gca;
-ax.FontSize = 14;
+ax.FontSize = 16;
 ax.XAxis.TickLabelInterpreter = 'Latex';
 ax.YAxis.TickLabelInterpreter = 'Latex';
 % exportgraphics(gca, 'plots/all_methods_local_error_testfunc1.png', 'Resolution',300)

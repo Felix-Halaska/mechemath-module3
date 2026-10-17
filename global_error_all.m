@@ -1,10 +1,10 @@
 t_ref = [0, .492];
 h_step = logspace(-5, 0, 100);
 
-test_func = @rate_func02;
+test_func = @rate_func01;
 
-XA = solution02(t_ref(1));
-gt = solution02(t_ref(end));
+XA = solution01(t_ref(1));
+gt = solution01(t_ref(end));
 
 fe_err_list = [];
 mp_err_list = [];

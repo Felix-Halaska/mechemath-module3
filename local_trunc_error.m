@@ -33,25 +33,32 @@ for i = 1:length(h_step)
 
 end
 
+filtered_h_step = h_step(h_step <= 1e0);
+filt_length = length(filtered_h_step);
 
-func1_mp_p = polyfit(log(h_step), log(func1_mp_err_list), 1)
-f_func1_mp = exp(polyval(func1_mp_p, log(h_step)));
+filtered_fe_err = func1_fe_err_list(1:filt_length);
+filtered_mp_err = func1_mp_err_list(1:filt_length);
 
-func1_fe_p = polyfit(log(h_step), log(func1_fe_err_list), 1)
-f_func1_fe = exp(polyval(func1_fe_p, log(h_step)));
+filtered_gt_err = func1_gt_err_list(1:filt_length);
 
-func1_gt_p = polyfit(log(h_step), log(func1_gt_err_list), 1)
-f_func1_gt = exp(polyval(func1_gt_p, log(h_step)));
+mp_p = polyfit(log(filtered_h_step), log(filtered_mp_err), 1)
+fe_p = polyfit(log(filtered_h_step), log(filtered_fe_err), 1)
+
+gt_p = polyfit(log(filtered_h_step), log(filtered_gt_err), 1)
+
+f_func1_mp = exp(polyval(mp_p, log(filtered_h_step)));
+f_func1_fe = exp(polyval(fe_p, log(filtered_h_step)));
+f_func1_gt = exp(polyval(gt_p, log(filtered_h_step)));
 
 
 figure();
-scatter(h_step, func1_mp_err_list, "r")
+scatter(filtered_h_step, filtered_mp_err, "filled", "r")
 hold on
-scatter(h_step, func1_fe_err_list,"g")
-scatter(h_step, func1_gt_err_list, "b");
-plot(h_step, f_func1_mp, '--', LineWidth=2, Color="r")
-plot(h_step, f_func1_fe, '--', LineWidth=2, Color="g")
-plot(h_step, f_func1_gt, '--', LineWidth=2, Color="b")
+scatter(filtered_h_step, filtered_fe_err,"filled", "g")
+scatter(filtered_h_step, filtered_gt_err, "filled", "b");
+plot(filtered_h_step, f_func1_mp, '--', LineWidth=2, Color="k")
+plot(filtered_h_step, f_func1_fe, '--', LineWidth=2, Color="k")
+plot(filtered_h_step, f_func1_gt, '--', LineWidth=2, Color="k")
 hold off
 set(gca,'xscale','log')
 set(gca,'yscale','log')
