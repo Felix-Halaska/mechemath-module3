@@ -1,77 +1,84 @@
 
 f = figure();
-subplot(2, 2, 1);
+tcl = tiledlayout(2, 2)
+% subplot(2, 2, 1);
+nexttile(tcl);
 t_space = linspace(0,20,20/0.01);
 true_sol = solution01(t_space);
 [t_list_fe, X_list_fe, h_avg, num_evals] = forward_euler_fixed_step_integration(@rate_func01, [0,20], 1, .38);
-plot(t_space, true_sol, LineWidth=3, Color="k")
+line1 = plot(t_space, true_sol, LineWidth=3, Color="k")
 hold on
-plot(t_list_fe, X_list_fe, '--', LineWidth=2, Color="r")
+line2 = plot(t_list_fe, X_list_fe, '-o',MarkerFaceColor='r', LineWidth=1, Color="r")
 hold off
-legend(["Analytical","Numerical"], Interpreter="latex", Location="southeast", FontSize=8)
-xlabel("x (-)", Interpreter="latex", FontSize=14)
-ylabel("f(x) (-)", Interpreter="latex", FontSize=14)
+%legend(["Analytical","Numerical"], Interpreter="latex", Location="southeast", FontSize=8)
+xlabel("$t (-)$", Interpreter="latex", FontSize=14)
+ylabel("$x(t) (-)$", Interpreter="latex", FontSize=14)
 axis([0 20 -2 2])
-title("Forward Euler vs Analytical Solution for h ref = 0.38", Interpreter='latex', FontSize=11)
+title(["Forward Euler vs Analytical Solution", "for $h_{ref}$ = 0.38"], Interpreter='latex', FontSize=11)
 ax = gca;
 ax.FontSize = 11;
 ax.XAxis.TickLabelInterpreter = 'Latex';
 ax.YAxis.TickLabelInterpreter = 'Latex';
 
-subplot(2, 2, 2);
+% subplot(2, 2, 2);
+nexttile(tcl);
 t_space = linspace(0,20,20/0.01);
 true_sol = solution01(t_space);
 [t_list_emp, X_list_emp, h_avg, num_evals] = explicit_midpoint_fixed_step_integration(@rate_func01, [0,20], 1, .38);
 plot(t_space, true_sol, LineWidth=3, Color="k")
 hold on
-plot(t_list_emp, X_list_emp, '--', LineWidth=2, Color="r")
+plot(t_list_emp, X_list_emp, '-o',MarkerFaceColor='r', LineWidth=1, Color="r")
 hold off
-legend(["Analytical","Numerical"], Interpreter="latex", Location="southeast", FontSize=8)
-xlabel("x (-)", Interpreter="latex", FontSize=14)
-ylabel("f(x) (-)", Interpreter="latex", FontSize=14)
+%legend(["Analytical","Numerical"], Interpreter="latex", Location="southeast", FontSize=8)
+xlabel("$t (-)$", Interpreter="latex", FontSize=14)
+ylabel("$x(t) (-)$", Interpreter="latex", FontSize=14)
 axis([0 20 -2 2])
-title("Explicit Midpoint vs Analytical Solution for h ref = 0.38", Interpreter='latex', FontSize=11)
+title(["Explicit Midpoint vs Analytical Solution", "for $h_{ref}$ = 0.38"], Interpreter='latex', FontSize=11)
 ax = gca;
 ax.FontSize = 11;
 ax.XAxis.TickLabelInterpreter = 'Latex';
 ax.YAxis.TickLabelInterpreter = 'Latex';
 
-subplot(2, 2, 3);
+% subplot(2, 2, 3);
+nexttile(tcl);
 t_space = linspace(0,20,20/0.01);
 true_sol = solution01(t_space);
 [t_list_be, X_list_be, h_avg, num_evals] = backward_euler_fixed_step_integration(@rate_func01, [0,20], 1, .38);
 plot(t_space, true_sol, LineWidth=3, Color="k")
 hold on
-plot(t_list_be, X_list_be, '--', LineWidth=2, Color="r")
+plot(t_list_be, X_list_be, '-o', MarkerFaceColor='r',LineWidth=1, Color="r")
 hold off
-legend(["Analytical","Numerical"], Interpreter="latex", Location="southeast", FontSize=8)
-xlabel("x (-)", Interpreter="latex", FontSize=14)
-ylabel("f(x) (-)", Interpreter="latex", FontSize=14)
+%legend(["Analytical","Numerical"], Interpreter="latex", Location="southeast", FontSize=8)
+xlabel("$t (-)$", Interpreter="latex", FontSize=14)
+ylabel("$x(t) (-)$", Interpreter="latex", FontSize=14)
 axis([0 20 -2 2])
-title("Backward Euler vs Analytical Solution for h ref = 0.38", Interpreter='latex', FontSize=11)
+title(["Backward Euler vs Analytical Solution", "for $h_{ref}$ = 0.38"], Interpreter='latex', FontSize=11)
 ax = gca;
 ax.FontSize = 11;
 ax.XAxis.TickLabelInterpreter = 'Latex';
 ax.YAxis.TickLabelInterpreter = 'Latex';
 
-subplot(2, 2, 4);
+% subplot(2, 2, 4);
+nexttile(tcl);
 t_space = linspace(0,20,20/0.01);
 true_sol = solution01(t_space);
 [t_list_imp, X_list_imp, h_avg, num_evals] = implicit_midpoint_fixed_step_integration(@rate_func01, [0,20], 1, .38);
 plot(t_space, true_sol, LineWidth=3, Color="k")
 hold on
-plot(t_list_imp, X_list_imp, '--', LineWidth=2, Color="r")
+plot(t_list_imp, X_list_imp, '-o',MarkerFaceColor='r', LineWidth=1, Color="r")
 hold off
-legend(["Analytical","Numerical"], Interpreter="latex", Location="southeast", FontSize=8)
-xlabel("x (-)", Interpreter="latex", FontSize=14)
-ylabel("f(x) (-)", Interpreter="latex", FontSize=14)
+%legend(["Analytical","Numerical"], Interpreter="latex", Location="southeast", FontSize=8)
+xlabel("$t (-)$", Interpreter="latex", FontSize=14)
+ylabel("$x(t) (-)$", Interpreter="latex", FontSize=14)
 axis([0 20 -2 2])
-title("Implicit Midpoint vs Analytical Solution for h ref = 0.38", Interpreter='latex', FontSize=11)
+title(["Implicit Midpoint vs Analytical Solution", "for $h_{ref}$ = 0.38"], Interpreter='latex', FontSize=11)
 ax = gca;
 ax.FontSize = 11;
 ax.XAxis.TickLabelInterpreter = 'Latex';
 ax.YAxis.TickLabelInterpreter = 'Latex';
 
 sgtitle("Explicit vs Implicit Method Stability Experiments", Interpreter='latex', FontSize=15)
+hl = legend(["Analytical" "Numerical"],Interpreter='latex', FontSize=15);
+hl.Layout.Tile = 'South';
 
 exportgraphics(f, 'plots/38_stability.png', 'Resolution',300)
