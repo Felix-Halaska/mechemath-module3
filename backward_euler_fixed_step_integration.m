@@ -29,15 +29,15 @@ function [t_list,X_list,h_avg, num_evals] = backward_euler_fixed_step_integratio
     end
 end
 
+
 % 
-% 
-% [t_list_small, X_list_small, h_avg, small_num_evals] = backward_euler_fixed_step_integration_test(@rate_func01, [0,4*pi], 1, 0.1);
-% [t_list_med, X_list_med, h_avg, med_num_evals] = backward_euler_fixed_step_integration_test(@rate_func01, [0,4*pi], 1, 0.25);
-% [t_list_large, X_list_large, h_avg, large_num_evals] = backward_euler_fixed_step_integration_test(@rate_func01, [0,4*pi], 1, 0.4);
+% [t_list_small, X_list_small, h_avg, small_num_evals] = backward_euler_fixed_step_integration_test(@rate_func01, [0,2*pi], 1, 0.1);
+% [t_list_med, X_list_med, h_avg, med_num_evals] = backward_euler_fixed_step_integration_test(@rate_func01, [0,2*pi], 1, 0.3);
+% [t_list_large, X_list_large, h_avg, large_num_evals] = backward_euler_fixed_step_integration_test(@rate_func01, [0,2*pi], 1, 0.5);
 % 
 % figure();
-% % set(f, "interpreter", "latex")
-% t_space = linspace(0,4*pi,2*pi/0.01);
+% set(f, "interpreter", "latex")
+% t_space = linspace(0,2*pi,2*pi/0.01);
 % true_sol = cos(t_space);
 % plot(t_space, true_sol, LineWidth=3, Color="k")
 % hold on
@@ -45,10 +45,10 @@ end
 % plot(t_list_med, X_list_med, "-o", MarkerFaceColor='g',LineWidth=2, Color="g")
 % plot(t_list_large, X_list_large, "-o", MarkerFaceColor='b',LineWidth=2, Color="b")
 % hold off
-% legend(["True","$h = 0.1$", "$h = 0.25$", "$h = 0.4$"], Interpreter="latex", Location="south", FontSize=16)
+% legend(["True","$h = 0.1$", "$h = 0.3$", "$h = 0.5$"], Interpreter="latex", Location="north", FontSize=16)
 % xlabel("Time (-)", Interpreter="latex", FontSize=16)
 % ylabel("$X(t) (-)$", Interpreter="latex", FontSize=16)
-% axis([0 4*pi -1.5 1.5])
+% axis([0 2*pi -1.5 1.5])
 % title("Backward Euler Method Integration Example", Interpreter='latex', FontSize=18)
 % ax = gca;
 % ax.FontSize = 16;
