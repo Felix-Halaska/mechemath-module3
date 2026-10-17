@@ -52,23 +52,23 @@ f_func1_gt = exp(polyval(gt_p, log(filtered_h_step)));
 
 
 figure();
-scatter(filtered_h_step, filtered_mp_err, "filled", "r")
+scatter(filtered_h_step, filtered_mp_err, 50, "filled", "r")
 hold on
-scatter(filtered_h_step, filtered_fe_err,"filled", "g")
-scatter(filtered_h_step, filtered_gt_err, "filled", "b");
-plot(filtered_h_step, f_func1_mp, '--', LineWidth=2, Color="k")
-plot(filtered_h_step, f_func1_fe, '--', LineWidth=2, Color="k")
-plot(filtered_h_step, f_func1_gt, '--', LineWidth=2, Color="k")
+scatter(filtered_h_step, filtered_fe_err, 50, "filled", "g")
+scatter(filtered_h_step, filtered_gt_err, 50, "filled", "b");
+plot(filtered_h_step, f_func1_mp, LineWidth=2, Color="k")
+plot(filtered_h_step, f_func1_fe, LineWidth=2, Color="k")
+plot(filtered_h_step, f_func1_gt, LineWidth=2, Color="k")
 hold off
 set(gca,'xscale','log')
 set(gca,'yscale','log')
-legend(["Explicit Midpoint Raw","Forward Euler Raw", "Ground Truth Raw", "Explicit Midpoint Fit", "Forward Euler Fit", "Ground Truth Fit"], Location = "northwest", Interpreter="latex", FontSize=14)
-xlabel("h step (-)", Interpreter="latex", FontSize=14)
-ylabel("error (-)", Interpreter="latex", FontSize=14)
+legend(["Explicit Midpoint Measured","Forward Euler Measured", "Ground Truth Measured"], Location = "southeast", Interpreter="latex", FontSize=16)
+xlabel("Time Step $h$ (-)", Interpreter="latex", FontSize=16)
+ylabel("Local Truncation Error (-)", Interpreter="latex", FontSize=16)
 % axis([0 4*pi -1.5 1.5])
-title("Test Func 1: Explicit Methods Local Error", Interpreter='latex', FontSize=16)
+title("Local Truncation Error vs. Step Size: Explicit Methods", Interpreter='latex', FontSize=18)
 ax = gca;
-ax.FontSize = 14;
+ax.FontSize = 16;
 ax.XAxis.TickLabelInterpreter = 'Latex';
 ax.YAxis.TickLabelInterpreter = 'Latex';
 exportgraphics(gca, 'plots/explicit_methods_local_error_testfunc1.png', 'Resolution',300)
