@@ -1,10 +1,10 @@
 t_ref = [0, .492];
 h_step = logspace(-5, 0, 100);
 
-test_func = @rate_func02;
+test_func = @rate_func01;
 
-XA = solution02(t_ref(1));
-gt = solution02(t_ref(end));
+XA = solution01(t_ref(1));
+gt = solution01(t_ref(end));
 
 fe_err_list = [];
 mp_err_list = [];
@@ -44,7 +44,7 @@ for i = 1:length(h_step)
 
 end
 
-filtered_h_step = h_step(1:end-4);
+filtered_h_step = h_step(h_step <= 1e-2);
 filt_length = length(filtered_h_step);
 
 filtered_fe_err = fe_err_list(1:filt_length);
@@ -53,58 +53,71 @@ filtered_be_err = be_err_list(1:filt_length);
 filtered_imp_err = imp_err_list(1:filt_length);
 filtered_gt_err = gt_err_list(1:filt_length);
 
+mp_p = polyfit(log(filtered_h_step), log(filtered_mp_err), 1)
+fe_p = polyfit(log(filtered_h_step), log(filtered_fe_err), 1)
+be_p = polyfit(log(filtered_h_step), log(filtered_be_err), 1)
+imp_p = polyfit(log(filtered_h_step), log(filtered_imp_err), 1)
 
-mp_p = polyfit(log(filtered_h_step), log(filt), 1)
-fe_p = polyfit(log(h_step), log(fe_err_list), 1)
-be_p = polyfit(log(h_step), log(be_err_list), 1)
-imp_p = polyfit(log(h_step), log(imp_err_list), 1)
+gt_p = polyfit(log(filtered_h_step), log(filtered_gt_err), 1)
 
-gt_p = polyfit(log(h_step), log(gt_err_list), 1)
+
+figure();
+scatter(filtered_h_step, filtered_mp_err, "r")
+hold on
+scatter(filtered_h_step, filtered_fe_err, "g")
+scatter(filtered_h_step, filtered_be_err, "b");
+scatter(filtered_h_step, filtered_imp_err, "k");
+% scatter(h_step, gt_err_list);
+hold off
+set(gca,'xscale','log')
+set(gca,'yscale','log')
+legend(["Explicit Midpoint","Forward Euler", "Backward Euler", "Implicit Midpoint"], Location = "northwest", Interpreter="latex", FontSize=16)
+xlabel("Time Step $h$ (-)", Interpreter="latex", FontSize=14)
+ylabel("Global Truncation Error (-)", Interpreter="latex", FontSize=14)
+% axis([0 4*pi -1.5 1.5])
+title("Global Truncation Error vs. Step Size: All Methods", Interpreter='latex', FontSize=16)
+ax = gca;
+ax.FontSize = 14;
+ax.XAxis.TickLabelInterpreter = 'Latex';
+ax.YAxis.TickLabelInterpreter = 'Latex';
+% exportgraphics(gca, 'plots/all_methods_global_error_testfunc1.png', 'Resolution',300)
+
+% filtered_eval = fe_evals_list(fe_evals_list >= 1e4);
+% filt_length = length(filtered_eval);
+% 
+% filtered_fe_err = fe_err_list(1:filt_length);
+% filtered_mp_err = mp_err_list(1:filt_length);
+% filtered_be_err = be_err_list(1:filt_length);
+% filtered_imp_err = imp_err_list(1:filt_length);
+% filtered_gt_err = gt_err_list(1:filt_length);
+% 
+% filtered_fe_eval = fe_evals_list(1:filt_length);
+% filtered_mp_eval = mp_evals_list(1:filt_length);
+% filtered_be_eval = be_evals_list(1:filt_length);
+% filtered_imp_eval = imp_evals_list(1:filt_length);
 
 mp_eval_p = polyfit(log(mp_evals_list), log(mp_err_list), 1)
 fe_eval_p = polyfit(log(fe_evals_list), log(fe_err_list), 1)
 be_eval_p = polyfit(log(be_evals_list), log(be_err_list), 1)
 imp_eval_p = polyfit(log(imp_evals_list), log(imp_err_list), 1)
 
-
-% figure();
-% scatter(h_step, mp_err_list, "r")
-% hold on
-% scatter(h_step, fe_err_list, "g")
-% scatter(h_step, be_err_list, "b");
-% scatter(h_step, imp_err_list, "k");
-% % scatter(h_step, gt_err_list);
-% hold off
-% set(gca,'xscale','log')
-% set(gca,'yscale','log')
-% legend(["Explicit Midpoint","Forward Euler", "Backward Euler", "Implicit Midpoint"], Location = "northwest", Interpreter="latex", FontSize=14)
-% xlabel("h step (-)", Interpreter="latex", FontSize=14)
-% ylabel("error (-)", Interpreter="latex", FontSize=14)
-% % axis([0 4*pi -1.5 1.5])
-% title("All Methods Global Error", Interpreter='latex', FontSize=16)
-% ax = gca;
-% ax.FontSize = 14;
-% ax.XAxis.TickLabelInterpreter = 'Latex';
-% ax.YAxis.TickLabelInterpreter = 'Latex';
-% % exportgraphics(gca, 'plots/all_methods_global_error_testfunc1.png', 'Resolution',300)
-
 figure();
-scatter(mp_evals_list, mp_err_list, "r")
+scatter(mp_evals_list, mp_err_list, 30, "filled","r")
 hold on
-scatter(fe_evals_list, fe_err_list, "g")
-scatter(be_evals_list, be_err_list, "b")
-scatter(imp_evals_list, imp_err_list, "k")
+scatter(fe_evals_list, fe_err_list, 75, "filled", "g")
+scatter(be_evals_list, be_err_list, 30, "filled", "b")
+scatter(imp_evals_list, imp_err_list, 30, "filled", "k")
 % scatter(h_step, gt_err_list);
 hold off
 set(gca,'xscale','log')
 set(gca,'yscale','log')
-legend(["Explicit Midpoint","Forward Euler", "Backward Euler", "Implicit Midpoint"], Location = "northeast", Interpreter="latex", FontSize=14)
-xlabel("Number of Rate Function Calls (-)", Interpreter="latex", FontSize=14)
-ylabel("Error (-)", Interpreter="latex", FontSize=14)
+legend(["Explicit Midpoint","Forward Euler", "Backward Euler", "Implicit Midpoint"], Location = "northeast", Interpreter="latex", FontSize=16)
+xlabel("Number of Rate Function Calls (-)", Interpreter="latex", FontSize=16)
+ylabel("Global Truncation Error (-)", Interpreter="latex", FontSize=16)
 % axis([0 4*pi -1.5 1.5])
-title("All Methods Global Error", Interpreter='latex', FontSize=16)
+title("Global Truncation Error vs. Number of Rate Function Calls: All Methods", Interpreter='latex', FontSize=18)
 ax = gca;
-ax.FontSize = 14;
+ax.FontSize = 16;
 ax.XAxis.TickLabelInterpreter = 'Latex';
 ax.YAxis.TickLabelInterpreter = 'Latex';
 % exportgraphics(gca, 'plots/all_methods_global_error_num_evals_testfunc1.png', 'Resolution',300)
