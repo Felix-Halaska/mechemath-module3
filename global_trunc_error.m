@@ -117,9 +117,9 @@ legend(["Explicit Midpoint Measured","Forward Euler Measured", "Explicit Midpoin
 xlabel("Number of Rate Function Calls (-)", Interpreter="latex", FontSize=14)
 ylabel("Global Truncation Error (-)", Interpreter="latex", FontSize=14)
 %axis([0 4*pi -1.5 1.5])
-title("Explicit Methods Global Error", Interpreter='latex', FontSize=18)
+title("Global Truncation Error vs Number of Rate Function Calls: Explicit Methods", Interpreter='latex', FontSize=16)
 ax = gca;
-ax.FontSize = 16;
+ax.FontSize = 14;
 ax.XAxis.TickLabelInterpreter = 'Latex';
 ax.YAxis.TickLabelInterpreter = 'Latex';
 exportgraphics(gca, 'plots/explicit_methods_global_error__func_calls_testfunc1.png', 'Resolution',300)
