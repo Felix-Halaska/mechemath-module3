@@ -44,6 +44,19 @@ for i = 1:length(h_step)
 
 end
 
+% filtered_h_step = h_step(1:end-4);
+% filt_length = length(filtered_h_step);
+% 
+% filtered_fe_err = fe_err_list(1:filt_length);
+% filtered_mp_err = mp_err_list(1:filt_length);
+% filtered_be_err = be_err_list(1:filt_length);
+% filtered_imp_err = imp_err_list(1:filt_length);
+% filtered_gt_err = gt_err_list(1:filt_length);
+% 
+% filtered_fe_eval = fe_evals_list(1:filt_length);
+% filtered_mp_eval = mp_evals_list(1:filt_length);
+% filtered_be_eval = be_evals_list(1:filt_length);
+% filtered_imp_eval = imp_evals_list(1:filt_length);
 
 mp_p = polyfit(log(h_step), log(mp_err_list), 1)
 fe_p = polyfit(log(h_step), log(fe_err_list), 1)
