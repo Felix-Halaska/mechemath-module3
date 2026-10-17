@@ -12,7 +12,7 @@
 %X_list: the vector of X, [X0';X1';X2';...;(X_end)'] at each time step
 %h_avg: the average step size
 %num_evals: total number of calls made to rate_func_in during the integration
-function [t_list,X_list,h_avg, num_evals] = implicit_midpoint_fixed_step_integration(rate_func_in,tspan,X0,h_ref)
+function [t_list,X_list,h_avg, num_evals] = implicit_midpoint_fixed_step_integration_test(rate_func_in,tspan,X0,h_ref)
     n_steps = ceil((tspan(2)-tspan(1))/h_ref);
 
     h_avg = (tspan(2) - tspan(1))/n_steps;
@@ -31,27 +31,27 @@ end
 
 
 
-% [t_list_small, X_list_small, h_avg, small_num_evals] = implicit_midpoint_fixed_step_integration_test(@rate_func01, [0,4*pi], 1, 0.1);
-% [t_list_med, X_list_med, h_avg, med_num_evals] = implicit_midpoint_fixed_step_integration_test(@rate_func01, [0,4*pi], 1, 0.25);
-% [t_list_large, X_list_large, h_avg, large_num_evals] = implicit_midpoint_fixed_step_integration_test(@rate_func01, [0,4*pi], 1, 0.4);
-% 
-% figure();
+[t_list_small, X_list_small, h_avg, small_num_evals] = implicit_midpoint_fixed_step_integration_test(@rate_func01, [0,2*pi], 1, 0.1);
+[t_list_med, X_list_med, h_avg, med_num_evals] = implicit_midpoint_fixed_step_integration_test(@rate_func01, [0,2*pi], 1, 0.5);
+[t_list_large, X_list_large, h_avg, large_num_evals] = implicit_midpoint_fixed_step_integration_test(@rate_func01, [0,2*pi], 1, 0.9);
+
+figure();
 % set(f, "interpreter", "latex")
-% t_space = linspace(0,4*pi,2*pi/0.01);
-% true_sol = cos(t_space);
-% plot(t_space, true_sol, LineWidth=3, Color="k")
-% hold on
-% plot(t_list_small, X_list_small, "-o",MarkerFaceColor='r',LineWidth=2, Color="r")
-% plot(t_list_med, X_list_med, "-o", MarkerFaceColor='g',LineWidth=2, Color="g")
-% plot(t_list_large, X_list_large, "-o", MarkerFaceColor='b',LineWidth=2, Color="b")
-% hold off
-% legend(["True","$h = 0.1$", "$h = 0.25$", "$h = 0.4$"], Interpreter="latex", Location="south", FontSize=16)
-% xlabel("Time (-)", Interpreter="latex", FontSize=16)
-% ylabel("$X(t) (-)$", Interpreter="latex", FontSize=16)
-% axis([0 4*pi -1.5 1.5])
-% title("Implicit Midpoint Method Integration Example", Interpreter='latex', FontSize=18)
-% ax = gca;
-% ax.FontSize = 16;
-% ax.XAxis.TickLabelInterpreter = 'Latex';
-% ax.YAxis.TickLabelInterpreter = 'Latex';
-% exportgraphics(gca, 'plots/implicit_midpoint.png', 'Resolution',300)
+t_space = linspace(0,2*pi,2*pi/0.01);
+true_sol = cos(t_space);
+plot(t_space, true_sol, LineWidth=3, Color="k")
+hold on
+plot(t_list_small, X_list_small, "-o",MarkerFaceColor='r',LineWidth=2, Color="r")
+plot(t_list_med, X_list_med, "-o", MarkerFaceColor='g',LineWidth=2, Color="g")
+plot(t_list_large, X_list_large, "-o", MarkerFaceColor='b',LineWidth=2, Color="b")
+hold off
+legend(["True","$h = 0.1$", "$h = 0.5$", "$h = 0.9$"], Interpreter="latex", Location="north", FontSize=16)
+xlabel("Time (-)", Interpreter="latex", FontSize=16)
+ylabel("$X(t) (-)$", Interpreter="latex", FontSize=16)
+axis([0 2*pi -1.5 1.5])
+title("Implicit Midpoint Method Integration Example", Interpreter='latex', FontSize=18)
+ax = gca;
+ax.FontSize = 16;
+ax.XAxis.TickLabelInterpreter = 'Latex';
+ax.YAxis.TickLabelInterpreter = 'Latex';
+exportgraphics(gca, 'plots/implicit_midpoint.png', 'Resolution',300)
